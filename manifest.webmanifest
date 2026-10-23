@@ -1,0 +1,19 @@
+{
+  "name": "Suivi commercial",
+  "short_name": "Suivi commercial",
+  "description": "Suivi de l'activité commerciale : objectifs, offres, ventes, relances, rendez-vous et distributeurs.",
+  "lang": "fr",
+  "dir": "ltr",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#141c27",
+  "theme_color": "#141c27",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
