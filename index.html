@@ -15,13 +15,22 @@
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <link rel="manifest" href="manifest.webmanifest">
+<script>
+/* Thème appliqué avant l'affichage, pour éviter un flash : 'auto' | 'jour' | 'nuit' */
+(function () {
+  var t = 'auto';
+  try { t = localStorage.getItem('suivi-commercial-theme') || 'auto'; } catch (e) { /* stockage bloqué */ }
+  var sombre = t === 'nuit' || (t === 'auto' && !!window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.setAttribute('data-theme', sombre ? 'sombre' : 'clair');
+})();
+</script>
 <style>
 /* =====================================================================
    JETONS DE DESIGN (inspirés du système de variables de Gentelella,
    réécrits pour mobile). Clair et sombre sont gérés ici, au même endroit.
    ===================================================================== */
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
   /* Encre : bandeau du haut et couleur d'accent (boutons, onglet actif).
      L'accent est volontairement neutre pour laisser les couleurs aux états. */
@@ -63,33 +72,34 @@
   --tabbar-h: 58px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --ink: #121a24;
-    --ink-bord: #243040;
-    --on-ink-doux: #93a1b2;
-    --accent: #e8edf3;
-    --on-accent: #0b1017;
+/* Mode nuit : appliqué via data-theme="sombre" (réglage Plus › Apparence :
+   Automatique suit l'iPhone, Jour force le clair, Nuit force le sombre). */
+:root[data-theme="sombre"] {
+  color-scheme: dark;
+  --ink: #121a24;
+  --ink-bord: #243040;
+  --on-ink-doux: #93a1b2;
+  --accent: #e8edf3;
+  --on-accent: #0b1017;
 
-    --bg: #0b1017;
-    --surface: #151c26;
-    --surface-2: #1a2330;
-    --bord: #263142;
-    --bord-fort: #3b4859;
-    --texte: #eef2f6;
-    --texte-2: #c3ccd7;
-    --doux: #98a4b3;
-    --neutre-bg: #222d3b;
+  --bg: #0b1017;
+  --surface: #151c26;
+  --surface-2: #1a2330;
+  --bord: #263142;
+  --bord-fort: #3b4859;
+  --texte: #eef2f6;
+  --texte-2: #c3ccd7;
+  --doux: #98a4b3;
+  --neutre-bg: #222d3b;
 
-    --ok: #4cc77c;      --ok-bg: rgba(76, 199, 124, .16);
-    --warn: #f3a650;    --warn-bg: rgba(243, 166, 80, .16);
-    --bad: #ff6b70;     --bad-bg: rgba(255, 107, 112, .16);
-    --info: #6aaeff;    --info-bg: rgba(106, 174, 255, .16);
+  --ok: #4cc77c;      --ok-bg: rgba(76, 199, 124, .16);
+  --warn: #f3a650;    --warn-bg: rgba(243, 166, 80, .16);
+  --bad: #ff6b70;     --bad-bg: rgba(255, 107, 112, .16);
+  --info: #6aaeff;    --info-bg: rgba(106, 174, 255, .16);
 
-    --focus: #6aaeff;
-    --toast-bg: #2a3647;
-    --ombre-carte: 0 0 0 1px var(--bord), 0 1px 3px rgba(0, 0, 0, .3);
-  }
+  --focus: #6aaeff;
+  --toast-bg: #2a3647;
+  --ombre-carte: 0 0 0 1px var(--bord), 0 1px 3px rgba(0, 0, 0, .3);
 }
 
 /* ===== Base ===== */
@@ -534,62 +544,8 @@ ART-010935|Cle a choc hydraulique 1''
 ART-013959|Centrale hydraulique 9 CV
 ART-013086|Centrale hydraulique 13 CV
 #forage
-ART-005628|Tariere 10" (250) dents plates pour arbre hexagonal 2''5/8
-ART-004529|Tariere 10" (250) dents rondes pour arbre hexagonal 2''5/8
-ART-005629|Tariere 10" (250) desagregatrice pour arbre hexagonal 2''5/8
-ART-004521|Carottier 12" (300) pour arbre hexagonal 2''5/8
-ART-005618|Tariere 12" (300) dents plates pour arbre hexagonal 2''5/8
-ART-004530|Tariere 12" (300) dents rondes pour arbre hexagonal 2''5/8
-ART-005619|Tariere 12" (300) desagregatrice pour arbre hexagonal 2''5/8
-ART-004522|Carottier 14" (350) pour arbre hexagonal 2''5/8
-ART-005638|Tariere 14" (350) dents plates pour arbre hexagonal 2''5/8
-ART-004531|Tariere 14" (350) dents rondes pour arbre hexagonal 2''5/8
-ART-005639|Tariere 14" (350) desagregatrice pour arbre hexagonal 2''5/8
-ART-004523|Carottier 16" (400) pour arbre hexagonal 2''5/8
-ART-004537|Tariere 16" (400) dents plates pour arbre hexagonal 2''5/8
-ART-004532|Tariere 16" (400) dents rondes pour arbre hexagonal 2''5/8
-ART-005648|Tariere 16" (400) desagregatrice pour arbre hexagonal 2''5/8
-ART-004524|Carottier 20" (500) pour arbre hexagonal 2''5/8
-ART-005658|Tariere 20" (500)dents plates pour arbre hexagonal 2''5/8
-ART-005657|Tariere 20" (500) dents rondes pour arbre hexagonal 2''5/8
-ART-005659|Tariere 20" (500) desagregatrice pour arbre hexagonal 2''5/8
-ART-004525|Carottier 24" (600) pour arbre hexagonal 2''5/8
-ART-004535|Tariere 24" (600) dents plates pour arbre hexagonal 2''5/8
-ART-004533|Tariere 24" (600) dents rondes pour arbre hexagonal 2''5/8
-ART-005660|Tariere 24" (600) desagregatrice pour arbre hexagonal 2''5/8
-ART-004526|Carottier 26" (650) pour arbre hexagonal 2''5/8
-ART-005662|Tariere 26" (650)dents plates pour arbre hexagonal 2''5/8
-ART-005661|Tariere 26" (650) dents rondes pour arbre hexagonal 2''5/8
-ART-005663|Tariere 26" (650) desagregatrice pour arbre hexagonal 2''5/8
-ART-004527|Carottier 30" (750) pour arbre hexagonal 2''5/8
-ART-005665|Tariere 30" (750)dents plates pour arbre hexagonal 2''5/8
-ART-005664|Tariere 30" (750) dents rondes pour arbre hexagonal 2''5/8
-ART-005666|Tariere 30" (750) desagregatrice pour arbre hexagonal 2''5/8
-ART-014304|Carottier 32" (800) pour arbre hexagonal 2''5/8
-ART-005667|Tariere 32" (800)dents plates pour arbre hexagonal 2''5/8
-ART-004534|Tariere 32'' (800) dents rondes pour arbre hexagonal 2''5/8
-ART-005668|Tariere 32" (800) desagregatrice pour arbre hexagonal 2''5/8
-ART-004528|Carottier 36" (900) pour arbre hexagonal 2''5/8
-ART-004536|Tariere 36" (900) dents plates pour arbre hexagonal 2''5/8
-ART-005669|Tariere 36" (900) dents rondes pour arbre hexagonal 2''5/8
-ART-005670|Tariere 36" (900) desagregatrice pour arbre hexagonal 2''5/8
-ART-013518|Tariere 40" (1000) dents plates pour arbre hexagonal 2''5/8
-ART-014305|Tariere 40" (1000) dents rondes pour arbre hexagonal 2''5/8
-ART-005631|Tariere 10" (250) dents plates pour arbre hexagonal 70
-ART-005630|Tariere 10" (250) dents rondes pour arbre hexagonal 70
-ART-005632|Tariere 10" (250) desagregatrice pour arbre hexagonal 70
-ART-005332|Carottier 12" (300) pour arbre hexagonal 70
-ART-005621|Tariere 12" (300) dents plates pour arbre hexagonal 70
-ART-005620|Tariere 12" (300) dents rondes pour arbre hexagonal 70
-ART-005622|Tariere 12" (300) desagregatrice pour arbre hexagonal 70
-ART-005333|Carottier 14" (350) pour arbre hexagonal 70
-ART-005641|Tariere 14" (350) dents plates pour arbre hexagonal 70
-ART-005640|Tariere 14" (350) dents rondes pour arbre hexagonal 70
-ART-005642|Tariere 14" (350) desagregatrice pour arbre hexagonal 70
-ART-005334|Carottier 16" (400) pour arbre hexagonal 70
-ART-005650|Tariere 16" (400) dents plates pour arbre hexagonal 70
-ART-005649|Tariere 16" (400) dents rondes pour arbre hexagonal 70
-ART-005651|Tariere 16" (400) desagregatrice pour arbre hexagonal 70
+-|Tarière
+-|Carottier
 ART-004579|Dent plate au carbure dp1656 (int)
 ART-004580|Dent plate au carbure ext dp1658
 ART-004602|Porte dent plate a souder wt50
@@ -614,8 +570,8 @@ ART-004618|Arrache-dents pour dents rondes 25,4mm
 /* =====================================================================
    CONFIGURATION
    ===================================================================== */
-const APP_VERSION = 'v1.0.0';      // affichée dans Plus > À propos (à changer à chaque mise en ligne)
-const SCHEMA_VERSION = 1;          // version de la structure des données (voir migrer())
+const APP_VERSION = 'v1.1.0';      // affichée dans Plus > À propos (à changer à chaque mise en ligne)
+const SCHEMA_VERSION = 2;          // version de la structure des données (voir migrer())
 const CLE_STOCKAGE = 'suivi-commercial';
 
 // Référentiel fixe : Groupe > Famille (non modifiable en v1)
@@ -638,7 +594,7 @@ const GROUPE = Object.fromEntries(GROUPES.map(g => [g.id, g]));
 
 // Les 4 objectifs suivis (cibles par défaut modifiables dans Plus > Objectifs)
 const OBJECTIFS = [
-  { id: 'negoce', label: 'Négoce', unite: 'eur', aide: 'CA des lignes du groupe Négoce' },
+  { id: 'negoce', label: 'Négoce', unite: 'eur', aide: 'CA des ventes Négoce (part Négoce si la vente est mixte)' },
   { id: 'treuil', label: 'Treuil', unite: 'unites', aide: 'Quantités de la famille Treuil' },
   { id: 'rec', label: 'REC', unite: 'unites', aide: 'Quantités de la famille REC' },
   { id: 'distrib', label: 'Contrats distributeurs', unite: 'contrats', aide: 'Distributeurs signés dans la période' },
@@ -649,7 +605,9 @@ const REGLAGES_DEFAUT = {
   cibles: { negoce: 300000, treuil: 6, rec: 5, distrib: 5 },
   idees: '',
   derniereSauvegarde: null,
+  theme: 'auto',      // 'auto' (suit l'iPhone) | 'jour' | 'nuit'
 };
+const THEMES = [{ v: 'auto', l: 'Automatique' }, { v: 'jour', l: 'Jour' }, { v: 'nuit', l: 'Nuit' }];
 
 const DUREES = [
   { v: 30, l: '30 min' }, { v: 60, l: '1 h' }, { v: 90, l: '1 h 30' },
@@ -680,6 +638,7 @@ const ICONES = {
   cible: svg('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>', 20),
   idee: svg('<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/>', 20),
   sauvegarde: svg('<path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/>', 20),
+  apparence: svg('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>', 20),
   info: svg('<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/>', 20),
   vide: svg('<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8"/>', 40),
 };
@@ -696,6 +655,7 @@ const MENU_PLUS = [
   { id: 'distributeurs', label: 'Distributeurs', icone: 'distrib' },
   { id: 'catalogue', label: 'Catalogue produits', icone: 'catalogue' },
   { id: 'objectifs', label: 'Objectifs', icone: 'cible' },
+  { id: 'apparence', label: 'Apparence', icone: 'apparence' },
   { id: 'idees', label: "Idées d'amélioration", icone: 'idee' },
   { id: 'sauvegarde', label: 'Sauvegarde', icone: 'sauvegarde' },
   { id: 'apropos', label: 'À propos', icone: 'info' },
@@ -755,10 +715,9 @@ const NF0 = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 0 });
 const NF1 = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 });
 const NF2 = new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const NBSP = '\u00a0';
-/** Montant arrondi à l'euro : « 12 500 € » */
-function eur(n) { return NF0.format(Math.round(n || 0)) + NBSP + '€'; }
-/** Montant exact (centimes si besoin) */
-function eurExact(n) { n = n || 0; return (Number.isInteger(n) ? NF0.format(n) : NF2.format(n)) + NBSP + '€'; }
+/** Montant au centime : « 12 500,50 € » */
+function eur(n) { return NF2.format(arrondi2(n)) + NBSP + '€'; }
+function arrondi2(n) { return Math.round((Number(n) || 0) * 100) / 100; }
 /** Format compact du tableau de bord : « 128 k€ » */
 function eurCompact(n) {
   n = n || 0; const a = Math.abs(n);
@@ -772,18 +731,18 @@ function nb1(x) { return NF1.format(Math.round((x || 0) * 10) / 10); }
 function pluriel(n, mot, motPluriel) { return `${n} ${n > 1 ? (motPluriel || mot + 's') : mot}`; }
 function points(n) { return `${n} point${n > 1 ? 's' : ''}`; }
 
-/** Lit un montant saisi : « 12500,50 », « 12 500 », « 12500.5 ». Renvoie NaN si invalide. */
+/** Lit un montant saisi, 2 décimales maximum : « 12500,50 », « 12 500 », « 12500.5 ». Renvoie NaN si invalide. */
 function parseMontant(t) {
   if (t == null) return NaN;
   const s = String(t).replace(/[\s\u00a0\u202f€]/g, '').replace(',', '.');
-  if (!/^\d+(\.\d+)?$/.test(s)) return NaN;
-  return Math.round(parseFloat(s) * 100) / 100;
+  if (!/^\d+(\.\d{1,2})?$/.test(s)) return NaN;
+  return arrondi2(parseFloat(s));
 }
 function parseEntier(t) {
   const s = String(t ?? '').trim();
   return /^\d+$/.test(s) ? parseInt(s, 10) : NaN;
 }
-function versSaisie(n) { return n == null ? '' : String(n).replace('.', ','); }
+function versSaisie(n) { return n == null ? '' : (Number.isInteger(n) ? String(n) : Number(n).toFixed(2)).replace('.', ','); }
 
 /* =====================================================================
    CATALOGUE : lecture de la constante
@@ -916,10 +875,44 @@ function etatInitial() {
 
 /**
  * Migrations du schéma. Chaque entrée transforme les données de la
- * version N vers N+1. Exemple pour une future v2 :
- *   1: e => { e.offres.forEach(o => { o.numeroErp = ''; }); },
+ * version N vers N+1.
  */
-const MIGRATIONS = {};
+const MIGRATIONS = {
+  /*
+   * v1 -> v2 (appli v1.1.0)
+   *  - Offres et ventes : un CA total par document (doc.ca) au lieu d'un CA
+   *    par ligne. Pour un document mixte Machine + Négoce, la part Négoce
+   *    d'origine est conservée dans doc.caNegoce : les totaux ne bougent pas.
+   *  - Catalogue : les tarières et carottiers détaillés sont remplacés par
+   *    « Tarière » et « Carottier ». Un produit retiré déjà utilisé dans une
+   *    offre, une vente ou un RDV est masqué (historique intact), sinon supprimé.
+   */
+  1: e => {
+    const produits = Array.isArray(e.produits) ? e.produits : [];
+    const famille = new Map(produits.map(p => [p.id, p.famille]));
+    const groupe = id => (FAMILLE[famille.get(id)] || {}).groupe || null;
+    for (const doc of [...(e.offres || []), ...(e.ventes || [])]) {
+      const lignes = Array.isArray(doc.lignes) ? doc.lignes : (doc.lignes = []);
+      doc.ca = arrondi2(lignes.reduce((s, l) => s + (Number(l.ca) || 0), 0));
+      const groupes = new Set(lignes.map(l => groupe(l.produitId)));
+      doc.caNegoce = (doc.affaire !== 'SAV' && groupes.has('machine') && groupes.has('negoce'))
+        ? arrondi2(lignes.reduce((s, l) => s + (groupe(l.produitId) === 'negoce' ? (Number(l.ca) || 0) : 0), 0))
+        : null;
+      lignes.forEach(l => { delete l.ca; });
+    }
+    const clesCatalogue = new Set(CATALOGUE_PRODUITS.map(c => c.cle));
+    const utilises = new Set([
+      ...[...(e.offres || []), ...(e.ventes || [])].flatMap(d => d.lignes.map(l => l.produitId)),
+      ...(e.rdvs || []).map(r => r.produitId).filter(Boolean),
+    ]);
+    e.produits = produits.filter(p => {
+      const retire = p.catalogueCle && !clesCatalogue.has(p.catalogueCle) && p.famille === 'forage' && /^(tariere|carottier)\b/.test(norm(p.designation).trim());
+      if (!retire) return true;
+      if (utilises.has(p.id)) { p.actif = false; p.modifieLe = maintenantISO(); return true; }
+      return false;
+    });
+  },
+};
 
 function migrer(e) {
   if (!e || typeof e !== 'object') return etatInitial();
@@ -968,6 +961,19 @@ function synchroniserCatalogue(e) {
 
 function indexer() { produitsParId = new Map(etat.produits.map(p => [p.id, p])); }
 
+/** Applique le thème choisi (Plus › Apparence) et le mémorise pour le prochain lancement. */
+const requeteSombre = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+function appliquerTheme() {
+  const t = (etat && etat.reglages && etat.reglages.theme) || 'auto';
+  const sombre = t === 'nuit' || (t === 'auto' && !!requeteSombre && requeteSombre.matches);
+  document.documentElement.setAttribute('data-theme', sombre ? 'sombre' : 'clair');
+  try { localStorage.setItem('suivi-commercial-theme', t); } catch (e) { /* stockage bloqué */ }
+}
+if (requeteSombre) {
+  try { requeteSombre.addEventListener('change', appliquerTheme); }
+  catch (e) { if (requeteSombre.addListener) requeteSombre.addListener(appliquerTheme); }
+}
+
 let fileEcriture = Promise.resolve(true);
 /** Enregistre l'état complet (écritures mises en file, jamais en parallèle). */
 function sauver() {
@@ -990,16 +996,39 @@ const R = () => etat.reglages;
 function produit(id) { return produitsParId.get(id) || null; }
 function familleDe(produitId) { const p = produit(produitId); return p ? p.famille : null; }
 function groupeDe(familleId) { return FAMILLE[familleId] ? FAMILLE[familleId].groupe : null; }
-/** Règle SAV : affaire « SAV » OU produit du groupe SAV. */
-function estLigneSAV(doc, ligne) { return doc.affaire === 'SAV' || groupeDe(familleDe(ligne.produitId)) === 'sav'; }
-function totalDoc(doc) { return doc.lignes.reduce((s, l) => s + l.ca, 0); }
-function caCommercialDoc(doc) { return doc.lignes.reduce((s, l) => s + (estLigneSAV(doc, l) ? 0 : l.ca), 0); }
-function aDesLignesCommerciales(doc) { return doc.lignes.some(l => !estLigneSAV(doc, l)); }
-function aDesLignesSAV(doc) { return doc.lignes.some(l => estLigneSAV(doc, l)); }
+/*
+ * Une offre ou une vente porte UN CA total (doc.ca), les lignes ne portent
+ * que produit + quantité. Répartition du CA :
+ *  - affaire « SAV », ou uniquement des produits du groupe SAV : tout en SAV ;
+ *  - sinon CA commercial, attribué au groupe des produits (Machine ou Négoce) ;
+ *  - document mixte Machine + Négoce : la part Négoce est saisie (doc.caNegoce),
+ *    le reste va en Machine.
+ * Les quantités (objectifs Treuil et REC) restent comptées par ligne.
+ */
+function groupesLignes(lignes) { return new Set(lignes.map(l => groupeDe(familleDe(l.produitId))).filter(Boolean)); }
+function estMixte(groupes) { return groupes.has('machine') && groupes.has('negoce'); }
+function estDocSAV(doc) {
+  return doc.affaire === 'SAV' || (doc.lignes.length > 0 && doc.lignes.every(l => groupeDe(familleDe(l.produitId)) === 'sav'));
+}
+function totalDoc(doc) { return Number(doc.ca) || 0; }
+function repartitionDoc(doc) {
+  const total = totalDoc(doc);
+  const r = { total, sav: 0, commercial: 0, machine: 0, negoce: 0 };
+  if (estDocSAV(doc)) { r.sav = total; return r; }
+  r.commercial = total;
+  const g = groupesLignes(doc.lignes);
+  if (estMixte(g)) {
+    r.negoce = clamp(Number(doc.caNegoce) || 0, 0, total);
+    r.machine = arrondi2(total - r.negoce);
+  } else if (g.has('negoce')) r.negoce = total;
+  else if (g.has('machine')) r.machine = total;
+  return r;
+}
+function caCommercialDoc(doc) { return repartitionDoc(doc).commercial; }
+function aDesLignesCommerciales(doc) { return !estDocSAV(doc); }
 function produitPrincipal(doc) {
   if (!doc.lignes.length) return '';
-  const l = doc.lignes.reduce((a, b) => (b.ca > a.ca ? b : a));
-  const p = produit(l.produitId);
+  const p = produit(doc.lignes[0].produitId);
   return p ? p.designation : 'Produit supprimé';
 }
 function metaProduit(p) { return [p.code, FAMILLE[p.famille] ? FAMILLE[p.famille].label : ''].filter(Boolean).join(' · '); }
@@ -1027,48 +1056,43 @@ function tempsEcoule() {
   return total > 0 ? ecoules / total : 0;
 }
 
-/** Agrège les ventes d'une période (les lignes SAV sont comptées à part). */
+/** Agrège les ventes d'une période (le SAV est compté à part). */
 function agregatsVentes(p) {
   const r = {
     negoce: 0, treuil: 0, rec: 0,
     caCommercial: 0, nbVentes: 0, nbVentesCom: 0,
     caDirect: 0, caDistrib: 0, parDistrib: new Map(),
     caSav: 0, nbSav: 0,
-    parGroupe: {}, // groupe -> { ca, qte, familles: { famille -> { ca, qte, produits: Map(id -> {ca, qte}) } } }
+    parGroupe: {}, // groupe -> { ca, qte, familles: { famille -> { qte, produits: Map(id -> { qte }) } } }
   };
+  const groupe = g => r.parGroupe[g] || (r.parGroupe[g] = { ca: 0, qte: 0, familles: {} });
   for (const v of etat.ventes) {
     if (!dansPeriode(v.date, p)) continue;
     r.nbVentes++;
-    let caCom = 0, com = false, sav = false;
+    const rep = repartitionDoc(v);
+    if (estDocSAV(v)) { r.nbSav++; r.caSav += rep.sav; continue; }
+    r.nbVentesCom++;
+    r.caCommercial += rep.commercial;
+    r.negoce += rep.negoce;
+    if (!v.canal || v.canal === 'direct') r.caDirect += rep.commercial;
+    else {
+      r.caDistrib += rep.commercial;
+      r.parDistrib.set(v.canal, (r.parDistrib.get(v.canal) || 0) + rep.commercial);
+    }
+    if (rep.machine) groupe('machine').ca += rep.machine;
+    if (rep.negoce) groupe('negoce').ca += rep.negoce;
     for (const l of v.lignes) {
-      if (estLigneSAV(v, l)) { sav = true; r.caSav += l.ca; continue; }
-      com = true;
-      caCom += l.ca;
       const fam = familleDe(l.produitId);
       const g = groupeDe(fam);
-      if (g === 'negoce') r.negoce += l.ca;
+      if (!g || g === 'sav') continue;
       if (fam === 'treuil') r.treuil += l.quantite;
       if (fam === 'rec') r.rec += l.quantite;
-      if (g) {
-        const G = r.parGroupe[g] || (r.parGroupe[g] = { ca: 0, qte: 0, familles: {} });
-        const F = G.familles[fam] || (G.familles[fam] = { ca: 0, qte: 0, produits: new Map() });
-        const P = F.produits.get(l.produitId) || { ca: 0, qte: 0 };
-        G.ca += l.ca; G.qte += l.quantite;
-        F.ca += l.ca; F.qte += l.quantite;
-        P.ca += l.ca; P.qte += l.quantite;
-        F.produits.set(l.produitId, P);
-      }
+      const G = groupe(g);
+      const F = G.familles[fam] || (G.familles[fam] = { qte: 0, produits: new Map() });
+      const P = F.produits.get(l.produitId) || { qte: 0 };
+      G.qte += l.quantite; F.qte += l.quantite; P.qte += l.quantite;
+      F.produits.set(l.produitId, P);
     }
-    if (com) {
-      r.nbVentesCom++;
-      r.caCommercial += caCom;
-      if (!v.canal || v.canal === 'direct') r.caDirect += caCom;
-      else {
-        r.caDistrib += caCom;
-        r.parDistrib.set(v.canal, (r.parDistrib.get(v.canal) || 0) + caCom);
-      }
-    }
-    if (sav) r.nbSav++;
   }
   return r;
 }
@@ -1085,20 +1109,18 @@ function pipeline() {
   for (const o of etat.offres) {
     if (o.statut !== 'en_cours') continue;
     const ch = (o.chance || 0) / 100;
-    let com = false, sav = false;
+    const rep = repartitionDoc(o);
+    if (estDocSAV(o)) { r.savNb++; r.savCa += rep.sav; continue; }
+    r.nb++;
+    r.brut += rep.commercial; r.pondere += rep.commercial * ch;
+    r.machineCa += rep.machine; r.machinePond += rep.machine * ch;
+    r.negoceCa += rep.negoce; r.negocePond += rep.negoce * ch; r.prevNegoce += rep.negoce * ch;
     for (const l of o.lignes) {
-      if (estLigneSAV(o, l)) { sav = true; r.savCa += l.ca; continue; }
-      com = true;
-      r.brut += l.ca; r.pondere += l.ca * ch;
       const fam = familleDe(l.produitId);
-      const g = groupeDe(fam);
-      if (g === 'machine') { r.machineCa += l.ca; r.machineQte += l.quantite; r.machinePond += l.ca * ch; }
-      if (g === 'negoce') { r.negoceCa += l.ca; r.negocePond += l.ca * ch; r.prevNegoce += l.ca * ch; }
+      if (groupeDe(fam) === 'machine') r.machineQte += l.quantite;
       if (fam === 'treuil') r.prevTreuil += l.quantite * ch;
       if (fam === 'rec') r.prevRec += l.quantite * ch;
     }
-    if (com) r.nb++;
-    if (sav) r.savNb++;
   }
   return r;
 }
@@ -1428,13 +1450,13 @@ function sectionVentesFamilles(sel) {
     return `<details class="arbre"><summary><span class="nom">${esc(g.label)}</span><span class="val">${eur(G.ca)}${machine ? `<small>${pluriel(G.qte, 'unité')}</small>` : ''}</span></summary>
       ${fams.map(f => {
         const F = G.familles[f.id];
-        const prods = Array.from(F.produits.entries()).sort((x, y) => y[1].ca - x[1].ca);
-        return `<details class="arbre"><summary><span class="nom">${esc(f.label)}</span><span class="val">${eur(F.ca)}${machine ? `<small>${pluriel(F.qte, 'unité')}</small>` : ''}</span></summary>
-          <ul>${prods.map(([id, P]) => { const pr = produit(id); return `<li><span>${esc(pr ? pr.designation : 'Produit supprimé')}</span><span>${eur(P.ca)} · ${P.qte} u</span></li>`; }).join('')}</ul></details>`;
+        const prods = Array.from(F.produits.entries()).sort((x, y) => y[1].qte - x[1].qte);
+        return `<details class="arbre"><summary><span class="nom">${esc(f.label)}</span><span class="val">${pluriel(F.qte, 'unité')}</span></summary>
+          <ul>${prods.map(([id, P]) => { const pr = produit(id); return `<li><span>${esc(pr ? pr.designation : 'Produit supprimé')}</span><span>${P.qte} u</span></li>`; }).join('')}</ul></details>`;
       }).join('')}
     </details>`;
   }).join('');
-  return `<section class="section" aria-labelledby="t-vf"><h2 class="section-titre" id="t-vf">Ventes par groupe et famille <small>${esc(sel.libelle)}</small></h2><div class="carte">${corps}</div></section>`;
+  return `<section class="section" aria-labelledby="t-vf"><h2 class="section-titre" id="t-vf">Ventes par groupe et famille <small>${esc(sel.libelle)}</small></h2><div class="carte">${corps}${groupes.length ? '<p class="champ-aide" style="margin:10px 0 0">CA par groupe, quantités par famille et par produit.</p>' : ''}</div></section>`;
 }
 
 function sectionDistributeurs(sel) {
@@ -1620,12 +1642,13 @@ function carteRdv(r) {
    ÉCRAN PLUS (et ses sous-écrans)
    ===================================================================== */
 function ecranPlus() {
-  const sous = { distributeurs: ecranDistributeurs, catalogue: ecranCatalogue, objectifs: ecranObjectifs, idees: ecranIdees, sauvegarde: ecranSauvegarde, apropos: ecranAPropos };
+  const sous = { distributeurs: ecranDistributeurs, catalogue: ecranCatalogue, objectifs: ecranObjectifs, apparence: ecranApparence, idees: ecranIdees, sauvegarde: ecranSauvegarde, apropos: ecranAPropos };
   if (ui.plus && sous[ui.plus]) return sous[ui.plus]();
   const desc = {
     distributeurs: pluriel(etat.distributeurs.length, 'distributeur'),
     catalogue: `${pluriel(etat.produits.length, 'produit')} (${etat.produits.filter(p => !p.actif).length} masqué${etat.produits.filter(p => !p.actif).length > 1 ? 's' : ''})`,
     objectifs: `${fmtDate(R().debut)} → ${fmtDate(R().fin)}`,
+    apparence: R().theme === 'jour' ? 'Mode jour' : R().theme === 'nuit' ? 'Mode nuit' : "Automatique (suit l'iPhone)",
     idees: R().idees ? `${R().idees.trim().split(/\n+/).filter(Boolean).length} ligne(s)` : 'Aucune idée notée',
     sauvegarde: R().derniereSauvegarde ? `Dernière : ${fmtDateHeure(R().derniereSauvegarde)}` : 'Jamais sauvegardé',
     apropos: APP_VERSION,
@@ -1735,6 +1758,24 @@ function ecranObjectifs() {
         toast('Objectifs enregistrés');
         rendre();
       });
+    },
+  };
+}
+
+function ecranApparence() {
+  const h = `<div class="carte">
+      ${champSegment({ nom: 'theme', label: "Mode d'affichage", options: THEMES, valeur: R().theme || 'auto' })}
+      <p class="champ-aide" style="margin:0">Jour : fond clair, lisible en plein soleil. Nuit : fond sombre. Automatique : suit le réglage clair/sombre de l'iPhone.</p>
+    </div>`;
+  return {
+    entete: entete('Apparence', { retour: retourPlus }),
+    corps: h,
+    apres() {
+      $$('input[name="theme"]').forEach(i => i.addEventListener('change', () => {
+        R().theme = i.value;
+        appliquerTheme();
+        sauver();
+      }));
     },
   };
 }
@@ -1961,26 +2002,24 @@ function afficherErreurs(racine, erreurs, messageGlobal = '') {
 /* =====================================================================
    SÉLECTEUR DE PRODUIT (recherche instantanée)
    ===================================================================== */
+/** Ordre alphabétique français, nombres compris (« Kit 55FF » avant « Kit 130FF »). */
+const TRI_FR = new Intl.Collator('fr', { numeric: true, sensitivity: 'base' });
+function trierProduits(liste) {
+  return liste.slice().sort((a, b) => TRI_FR.compare(a.designation, b.designation) || TRI_FR.compare(a.code || '', b.code || ''));
+}
 /**
  * Recherche insensible à la casse et aux accents, plusieurs mots possibles.
  * Chaque mot doit apparaître dans la désignation ou le code.
+ * Résultats toujours classés par ordre alphabétique.
  */
 function rechercherProduits(q, famille = '', { inactifs = false } = {}) {
   const termes = norm(q).split(/[^a-z0-9]+/).filter(Boolean);
-  const base = etat.produits.filter(p => (inactifs || p.actif) && (!famille || p.famille === famille));
+  const base = trierProduits(etat.produits.filter(p => (inactifs || p.actif) && (!famille || p.famille === famille)));
   if (!termes.length) return base;
-  const res = [];
-  base.forEach((p, ordre) => {
+  return base.filter(p => {
     const texte = ' ' + norm(p.designation + ' ' + (p.code || '')).replace(/[^a-z0-9]+/g, ' ') + ' ';
-    let score = 0;
-    for (const t of termes) {
-      if (!texte.includes(t)) return;
-      if (texte.includes(' ' + t)) score++;
-    }
-    res.push({ p, score, ordre });
+    return termes.every(t => texte.includes(t));
   });
-  res.sort((a, b) => b.score - a.score || a.ordre - b.ordre);
-  return res.map(r => r.p);
 }
 /** Met en évidence les mots recherchés dans la désignation (affichage). */
 function surligner(texte, q) {
@@ -2056,25 +2095,22 @@ function choisirProduit({ famille = null, selection = null, facultatif = false }
    ===================================================================== */
 function ligneBrouillon(l) {
   return l
-    ? { id: l.id || uid(), produitId: l.produitId, qteTxt: String(l.quantite), caTxt: versSaisie(l.ca), err: null }
-    : { id: uid(), produitId: null, qteTxt: '1', caTxt: '', err: null };
+    ? { id: l.id || uid(), produitId: l.produitId, qteTxt: String(l.quantite), err: null }
+    : { id: uid(), produitId: null, qteTxt: '1', err: null };
 }
 function htmlLigne(l, i, n, produitModifiable) {
   const p = l.produitId ? produit(l.produitId) : null;
   const err = l.err || {};
   return `<div class="ligne" data-id="${l.id}">
-    <div class="ligne-tete"><span class="ligne-num">Ligne ${i + 1}</span>${n > 1 ? `<button type="button" class="btn-icone" data-l="suppr" aria-label="Supprimer la ligne ${i + 1}">${ICONES.poubelle}</button>` : ''}</div>
+    <div class="ligne-tete"><span class="ligne-num">Produit ${i + 1}</span>${n > 1 ? `<button type="button" class="btn-icone" data-l="suppr" aria-label="Retirer le produit ${i + 1}">${ICONES.poubelle}</button>` : ''}</div>
     ${produitModifiable
-      ? `<button type="button" class="selecteur ${err.produit ? 'invalide' : ''}" data-l="produit" aria-label="Produit de la ligne ${i + 1} : ${p ? esc(p.designation) : 'à choisir'}">${p ? `<span class="sel-nom">${esc(p.designation)}</span><span class="sel-meta">${esc(metaProduit(p))}</span>` : '<span class="sel-vide">Choisir un produit…</span>'}</button>`
+      ? `<button type="button" class="selecteur ${err.produit ? 'invalide' : ''}" data-l="produit" aria-label="Produit ${i + 1} : ${p ? esc(p.designation) : 'à choisir'}">${p ? `<span class="sel-nom">${esc(p.designation)}</span><span class="sel-meta">${esc(metaProduit(p))}</span>` : '<span class="sel-vide">Choisir un produit…</span>'}</button>`
       : `<div class="selecteur fixe"><span class="sel-nom">${esc(p ? p.designation : 'Produit supprimé')}</span><span class="sel-meta">${p ? esc(metaProduit(p)) : ''}</span></div>`}
     ${err.produit ? `<div class="champ-erreur">${esc(err.produit)}</div>` : ''}
     <div class="ligne-champs">
       <div class="champ"><label class="champ-label" for="${l.id}-q">Quantité</label>
         <input class="input" id="${l.id}-q" data-champ="quantite" inputmode="numeric" pattern="[0-9]*" autocomplete="off" value="${esc(l.qteTxt)}" ${err.quantite ? 'aria-invalid="true"' : ''}>
         ${err.quantite ? `<div class="champ-erreur">${esc(err.quantite)}</div>` : ''}</div>
-      <div class="champ"><label class="champ-label" for="${l.id}-ca">CA HT (€)</label>
-        <input class="input" id="${l.id}-ca" data-champ="ca" inputmode="decimal" autocomplete="off" placeholder="0,00" value="${esc(l.caTxt)}" ${err.ca ? 'aria-invalid="true"' : ''}>
-        ${err.ca ? `<div class="champ-erreur">${esc(err.ca)}</div>` : ''}</div>
     </div>
   </div>`;
 }
@@ -2094,8 +2130,6 @@ function editeurLignes(conteneur, lignes, { produitModifiable = true, onChange =
         l.produitId = pid;
         if (l.err) delete l.err.produit;
         rendreLignes(); onChange();
-        const ca = conteneur.querySelector(`[data-id="${CSS.escape(id)}"] [data-champ="ca"]`);
-        if (ca && !l.caTxt) ca.focus({ preventScroll: true });
       }
     }
   });
@@ -2105,7 +2139,6 @@ function editeurLignes(conteneur, lignes, { produitModifiable = true, onChange =
     if (!li) return;
     const l = lignes.find(x => x.id === li.dataset.id);
     if (inp.dataset.champ === 'quantite') l.qteTxt = inp.value;
-    if (inp.dataset.champ === 'ca') l.caTxt = inp.value;
     onChange();
   });
   rendreLignes();
@@ -2122,7 +2155,7 @@ function editeurLignes(conteneur, lignes, { produitModifiable = true, onChange =
     },
   };
 }
-/** Valide les lignes ; renvoie { ok, lignes } (lignes propres) et marque les erreurs. */
+/** Valide les lignes (produit + quantité) ; renvoie { ok, lignes } (lignes propres) et marque les erreurs. */
 function validerLignes(lignes) {
   let ok = lignes.length > 0;
   const propres = lignes.map(l => {
@@ -2130,15 +2163,44 @@ function validerLignes(lignes) {
     if (!l.produitId || !produit(l.produitId)) err.produit = 'Choisis un produit.';
     const q = parseEntier(l.qteTxt);
     if (!(q >= 1)) err.quantite = 'Entier ≥ 1.';
-    const ca = parseMontant(l.caTxt);
-    if (!(ca > 0)) err.ca = 'Montant > 0, ex. 12500,50.';
     l.err = Object.keys(err).length ? err : null;
     if (l.err) ok = false;
-    return { id: l.id, produitId: l.produitId, quantite: q, ca };
+    return { id: l.id, produitId: l.produitId, quantite: q };
   });
   return { ok, lignes: propres };
 }
-function totalBrouillon(lignes) { return lignes.reduce((s, l) => s + (parseMontant(l.caTxt) || 0), 0); }
+
+/* ---------------------------------------------------------------------
+   CA TOTAL (offre, vente, écran « gagnée »)
+   Un seul montant par document. Si les produits mêlent Machine et Négoce
+   (et que l'affaire n'est pas SAV), on demande en plus la part Négoce.
+   --------------------------------------------------------------------- */
+const MSG_MONTANT = 'Montant > 0, 2 décimales max (ex. 12500,50).';
+function htmlZoneCa(P, d, libelle) {
+  return `${champ({ id: P + 'ca', label: libelle, valeur: versSaisie(d.ca), requis: true, placeholder: '0,00', attrs: 'inputmode="decimal" autocomplete="off"' })}
+    <div data-zone="negoce" hidden>
+      ${champ({ id: P + 'caNegoce', label: 'Dont Négoce HT (€)', valeur: versSaisie(d.caNegoce), requis: true, placeholder: '0,00', aide: 'Produits Machine et Négoce mélangés : indique la part Négoce, le reste est compté en Machine.', attrs: 'inputmode="decimal" autocomplete="off"' })}
+    </div>`;
+}
+function partNegoceDemandee(lignes, affaire) { return affaire !== 'SAV' && estMixte(groupesLignes(lignes)); }
+function majZoneNegoce(f, lignes, affaire) { f.querySelector('[data-zone="negoce"]').hidden = !partNegoceDemandee(lignes, affaire); }
+/** Lit le CA total (et la part Négoce si demandée) ; ajoute les erreurs dans `erreurs`. */
+function lireZoneCa(f, P, lignes, affaire, erreurs) {
+  const ca = parseMontant(f.querySelector('#' + P + 'ca').value);
+  if (!(ca > 0)) erreurs[P + 'ca'] = MSG_MONTANT;
+  let caNegoce = null;
+  if (partNegoceDemandee(lignes, affaire)) {
+    caNegoce = parseMontant(f.querySelector('#' + P + 'caNegoce').value);
+    if (!(caNegoce >= 0)) erreurs[P + 'caNegoce'] = 'Montant ≥ 0, 2 décimales max.';
+    else if (ca > 0 && caNegoce > ca) erreurs[P + 'caNegoce'] = 'Ne peut pas dépasser le CA total.';
+  }
+  return { ca, caNegoce };
+}
+function messageErreurs(lignes, erreurs) {
+  const nbErr = Object.keys(erreurs).length + lignes.filter(l => l.err).length;
+  if (!lignes.length) return 'Ajoute au moins un produit.';
+  return nbErr ? `${nbErr > 1 ? `${nbErr} éléments à corriger` : 'Un élément à corriger'} (en rouge).` : '';
+}
 
 /* =====================================================================
    FORMULAIRE OFFRE
@@ -2147,7 +2209,7 @@ function formulaireOffre(id = null) {
   const existante = id ? etat.offres.find(o => o.id === id) : null;
   if (id && !existante) return;
   const P = prefixe();
-  const d = existante || { idClient: '', client: '', affaire: 'Commerce', dateEmission: aujourdhui(), chance: 50, relanceManuelle: false, dateRelance: null, statut: 'en_cours' };
+  const d = existante || { idClient: '', client: '', affaire: 'Commerce', dateEmission: aujourdhui(), chance: 50, relanceManuelle: false, dateRelance: null, statut: 'en_cours', ca: null, caNegoce: null };
   const lignes = existante ? existante.lignes.map(ligneBrouillon) : [ligneBrouillon()];
   let bloc = '';
   if (existante && existante.statut === 'gagnee') bloc = `<div class="form-info ok">${ICONES.coche}<span>Gagnée le ${fmtDate(existante.dateCloture)}. La vente a été créée.</span></div>`;
@@ -2179,26 +2241,28 @@ function formulaireOffre(id = null) {
     <div data-zone="relance" ${d.relanceManuelle ? '' : 'hidden'}>
       ${champ({ id: P + 'dateRelance', label: 'Date de prochaine relance', type: 'date', valeur: d.dateRelance || ajouterJours(aujourdhui(), 7), requis: true })}
     </div>
-    <h3 class="form-titre">Lignes</h3>
+    <h3 class="form-titre">Produits</h3>
     <div data-zone="lignes"></div>
-    <button type="button" class="btn btn-sec btn-bloc" data-f="ajouter-ligne">${ICONES.ajout}Ajouter une ligne</button>
-    <div class="carte totaux">
-      <div class="kv"><span>CA de l'offre (HT)</span><b data-total>0 €</b></div>
-      <div class="kv"><span>CA pondéré</span><b data-pondere>0 €</b></div>
-    </div>
+    <button type="button" class="btn btn-sec btn-bloc" data-f="ajouter-ligne">${ICONES.ajout}Ajouter un produit</button>
+    <h3 class="form-titre">Montant</h3>
+    ${htmlZoneCa(P, d, "CA total de l'offre HT (€)")}
+    <div class="carte totaux"><div class="kv"><span>CA pondéré</span><b data-pondere>0,00 €</b></div></div>
     ${actions}
   </form>`;
   const f = ouvrirFeuille({ titre: existante ? 'Offre' : 'Nouvelle offre', contenu, pied: `<button type="button" class="btn btn-prim btn-bloc" data-f="enregistrer">Enregistrer</button>` });
   const form = f.querySelector('form');
   const val = n => f.querySelector('#' + P + n).value;
+  const affaire = () => f.querySelector(`input[name="${P}affaire"]:checked`).value;
   const majTotaux = () => {
-    const t = totalBrouillon(lignes);
-    f.querySelector('[data-total]').textContent = eurExact(t);
-    f.querySelector('[data-pondere]').textContent = eurExact(Math.round(t * Number(val('chance'))) / 100);
+    const t = parseMontant(val('ca')) || 0;
+    f.querySelector('[data-pondere]').textContent = eur(Math.round(t * Number(val('chance'))) / 100);
+    majZoneNegoce(f, lignes, affaire());
   };
   const ed = editeurLignes(f.querySelector('[data-zone="lignes"]'), lignes, { onChange: majTotaux });
   majTotaux();
+  f.querySelector('#' + P + 'ca').addEventListener('input', majTotaux);
   f.querySelector('#' + P + 'chance').addEventListener('change', majTotaux);
+  $$(`input[name="${P}affaire"]`, f).forEach(i => i.addEventListener('change', majTotaux));
   f.querySelector('#' + P + 'relance').addEventListener('change', e => { f.querySelector('[data-zone="relance"]').hidden = !e.target.checked; });
 
   /** Lit et valide le formulaire ; renvoie les données propres ou null. */
@@ -2216,15 +2280,14 @@ function formulaireOffre(id = null) {
     }
     const vl = validerLignes(lignes);
     ed.rendre();
-    const nbErr = Object.keys(erreurs).length + lignes.filter(l => l.err).length;
-    const msg = !lignes.length ? 'Ajoute au moins une ligne.' : (nbErr ? `${nbErr > 1 ? `${nbErr} éléments à corriger` : 'Un élément à corriger'} (en rouge).` : '');
-    if (afficherErreurs(form, erreurs, msg) || !vl.ok) return null;
+    const { ca, caNegoce } = lireZoneCa(f, P, lignes, affaire(), erreurs);
+    if (afficherErreurs(form, erreurs, messageErreurs(lignes, erreurs)) || !vl.ok) return null;
     return {
       client, idClient: val('idClient').trim(),
-      affaire: f.querySelector(`input[name="${P}affaire"]:checked`).value,
+      affaire: affaire(),
       dateEmission, chance: Number(val('chance')),
       relanceManuelle, dateRelance,
-      lignes: vl.lignes,
+      lignes: vl.lignes, ca, caNegoce,
     };
   };
   const enregistrer = () => {
@@ -2273,46 +2336,47 @@ function formulaireOffre(id = null) {
   });
 }
 
-/** Écran « garde-fou » du passage en Gagnée : lignes modifiables, date et canal, puis création de la vente. */
+/** Écran « garde-fou » du passage en Gagnée : produits, quantités et CA ajustables, date et canal, puis création de la vente. */
 function ecranGagnee(offre, feuilleOffre) {
   const P = prefixe();
   const lignes = offre.lignes.map(l => ligneBrouillon({ ...l, id: uid() }));
   const contenu = `<form novalidate>
-    <div class="form-info neutre">${ICONES.info}<span>Vérifie ce que le client prend réellement : tu peux ajuster les quantités, les montants ou retirer une ligne.</span></div>
+    <div class="form-info neutre">${ICONES.info}<span>Vérifie ce que le client prend réellement : tu peux ajuster les quantités, le CA ou retirer un produit.</span></div>
     <div class="form-erreur" role="alert" hidden></div>
     <div class="carte" style="margin-bottom:16px"><div class="item-titre">${esc(offre.client)}${offre.idClient ? `<span class="item-id">${esc(offre.idClient)}</span>` : ''}</div><div class="item-l2">Offre émise le ${fmtDate(offre.dateEmission)} · ${esc(offre.affaire)}</div></div>
     <div class="grille2">
       ${champ({ id: P + 'date', label: 'Date de vente', type: 'date', valeur: aujourdhui(), requis: true })}
       ${champSelect({ id: P + 'canal', label: 'Canal', options: optionsCanal(), valeur: 'direct' })}
     </div>
-    <h3 class="form-titre">Lignes vendues</h3>
+    <h3 class="form-titre">Produits vendus</h3>
     <div data-zone="lignes"></div>
-    <div class="carte totaux"><div class="kv"><span>CA de la vente (HT)</span><b data-total>0 €</b></div></div>
+    <h3 class="form-titre">Montant</h3>
+    ${htmlZoneCa(P, offre, 'CA total de la vente HT (€)')}
   </form>`;
   const f = ouvrirFeuille({ titre: 'Offre gagnée', contenu, pied: `<button type="button" class="btn btn-ok btn-bloc" data-f="valider">Créer la vente</button>` });
   const form = f.querySelector('form');
-  const majTotal = () => { f.querySelector('[data-total]').textContent = eurExact(totalBrouillon(lignes)); };
-  const ed = editeurLignes(f.querySelector('[data-zone="lignes"]'), lignes, { produitModifiable: false, onChange: majTotal });
-  majTotal();
+  const maj = () => majZoneNegoce(f, lignes, offre.affaire);
+  const ed = editeurLignes(f.querySelector('[data-zone="lignes"]'), lignes, { produitModifiable: false, onChange: maj });
+  maj();
   f.querySelector('[data-f="valider"]').addEventListener('click', () => {
     const erreurs = {};
     const date = f.querySelector('#' + P + 'date').value;
     if (!dateValide(date)) erreurs[P + 'date'] = 'Date obligatoire.';
     const vl = validerLignes(lignes);
     ed.rendre();
-    const nbErr = Object.keys(erreurs).length + lignes.filter(l => l.err).length;
-    if (afficherErreurs(form, erreurs, !lignes.length ? 'Garde au moins une ligne.' : (nbErr ? 'Corrige les éléments en rouge.' : '')) || !vl.ok) return;
+    const { ca, caNegoce } = lireZoneCa(f, P, lignes, offre.affaire, erreurs);
+    if (afficherErreurs(form, erreurs, !lignes.length ? 'Garde au moins un produit.' : messageErreurs(lignes, erreurs)) || !vl.ok) return;
     const t = maintenantISO();
     // La vente est indépendante de l'offre : aucun lien n'est conservé
     etat.ventes.push({
       id: uid(), date, idClient: offre.idClient, client: offre.client, affaire: offre.affaire,
-      canal: f.querySelector('#' + P + 'canal').value, lignes: vl.lignes, creeLe: t, modifieLe: t,
+      canal: f.querySelector('#' + P + 'canal').value, lignes: vl.lignes, ca, caNegoce, creeLe: t, modifieLe: t,
     });
     Object.assign(offre, { statut: 'gagnee', dateCloture: aujourdhui(), modifieLe: t });
     sauver();
     fermerFeuille(f);
     if (feuilleOffre) fermerFeuille(feuilleOffre);
-    toast(`Vente créée · ${eur(vl.lignes.reduce((s, l) => s + l.ca, 0))}`);
+    toast(`Vente créée · ${eur(ca)}`);
     rendre();
   });
 }
@@ -2360,7 +2424,7 @@ function formulaireVente(id = null) {
   const existante = id ? etat.ventes.find(v => v.id === id) : null;
   if (id && !existante) return;
   const P = prefixe();
-  const d = existante || { date: aujourdhui(), idClient: '', client: '', affaire: 'Commerce', canal: 'direct' };
+  const d = existante || { date: aujourdhui(), idClient: '', client: '', affaire: 'Commerce', canal: 'direct', ca: null, caNegoce: null };
   const lignes = existante ? existante.lignes.map(ligneBrouillon) : [ligneBrouillon()];
   const contenu = `<form novalidate>
     <div class="form-erreur" role="alert" hidden></div>
@@ -2371,18 +2435,21 @@ function formulaireVente(id = null) {
       ${champ({ id: P + 'date', label: 'Date de vente', type: 'date', valeur: d.date, requis: true })}
       ${champSelect({ id: P + 'canal', label: 'Canal', options: optionsCanal(d.canal), valeur: d.canal || 'direct' })}
     </div>
-    <h3 class="form-titre">Lignes</h3>
+    <h3 class="form-titre">Produits</h3>
     <div data-zone="lignes"></div>
-    <button type="button" class="btn btn-sec btn-bloc" data-f="ajouter-ligne">${ICONES.ajout}Ajouter une ligne</button>
-    <div class="carte totaux"><div class="kv"><span>CA de la vente (HT)</span><b data-total>0 €</b></div></div>
+    <button type="button" class="btn btn-sec btn-bloc" data-f="ajouter-ligne">${ICONES.ajout}Ajouter un produit</button>
+    <h3 class="form-titre">Montant</h3>
+    ${htmlZoneCa(P, d, 'CA total de la vente HT (€)')}
     ${existante ? `<h3 class="form-titre">Actions</h3><div class="actions"><button type="button" class="btn btn-danger btn-bloc" data-f="supprimer">Supprimer la vente</button></div>` : ''}
   </form>`;
   const f = ouvrirFeuille({ titre: existante ? 'Vente' : 'Nouvelle vente', contenu, pied: `<button type="button" class="btn btn-prim btn-bloc" data-f="enregistrer">Enregistrer</button>` });
   const form = f.querySelector('form');
   const val = n => f.querySelector('#' + P + n).value;
-  const majTotal = () => { f.querySelector('[data-total]').textContent = eurExact(totalBrouillon(lignes)); };
-  const ed = editeurLignes(f.querySelector('[data-zone="lignes"]'), lignes, { onChange: majTotal });
-  majTotal();
+  const affaire = () => f.querySelector(`input[name="${P}affaire"]:checked`).value;
+  const maj = () => majZoneNegoce(f, lignes, affaire());
+  const ed = editeurLignes(f.querySelector('[data-zone="lignes"]'), lignes, { onChange: maj });
+  maj();
+  $$(`input[name="${P}affaire"]`, f).forEach(i => i.addEventListener('change', maj));
   f.addEventListener('click', async e => {
     const b = e.target.closest('[data-f]');
     if (!b) return;
@@ -2395,11 +2462,10 @@ function formulaireVente(id = null) {
       if (!dateValide(date)) erreurs[P + 'date'] = 'Date obligatoire.';
       const vl = validerLignes(lignes);
       ed.rendre();
-      const nbErr = Object.keys(erreurs).length + lignes.filter(l => l.err).length;
-      const msg = !lignes.length ? 'Ajoute au moins une ligne.' : (nbErr ? `${nbErr > 1 ? `${nbErr} éléments à corriger` : 'Un élément à corriger'} (en rouge).` : '');
-      if (afficherErreurs(form, erreurs, msg) || !vl.ok) return;
+      const { ca, caNegoce } = lireZoneCa(f, P, lignes, affaire(), erreurs);
+      if (afficherErreurs(form, erreurs, messageErreurs(lignes, erreurs)) || !vl.ok) return;
       const t = maintenantISO();
-      const donnees = { date, client, idClient: val('idClient').trim(), affaire: f.querySelector(`input[name="${P}affaire"]:checked`).value, canal: val('canal'), lignes: vl.lignes };
+      const donnees = { date, client, idClient: val('idClient').trim(), affaire: affaire(), canal: val('canal'), lignes: vl.lignes, ca, caNegoce };
       if (existante) Object.assign(existante, donnees, { modifieLe: t });
       else etat.ventes.push({ id: uid(), ...donnees, creeLe: t, modifieLe: t });
       sauver();
@@ -2787,7 +2853,10 @@ function analyserSauvegarde(texte) {
     if (!Array.isArray(d[k])) throw new Error(`Sauvegarde incomplète : « ${k} » manquant.`);
   }
   if (!d.reglages || typeof d.reglages !== 'object') throw new Error('Sauvegarde incomplète : réglages manquants.');
-  const docOk = x => x && typeof x.id === 'string' && Array.isArray(x.lignes) && x.lignes.every(l => l && typeof l.produitId === 'string' && typeof l.quantite === 'number' && typeof l.ca === 'number');
+  const v1 = (Number(obj.schema) || 1) < 2;
+  const docOk = x => x && typeof x.id === 'string' && Array.isArray(x.lignes) &&
+    x.lignes.every(l => l && typeof l.produitId === 'string' && typeof l.quantite === 'number' && (!v1 || typeof l.ca === 'number')) &&
+    (v1 || typeof x.ca === 'number');
   if (!d.offres.every(docOk) || !d.ventes.every(docOk)) throw new Error('Sauvegarde endommagée : offres ou ventes illisibles.');
   if (!d.produits.every(p => p && typeof p.id === 'string' && typeof p.designation === 'string')) throw new Error('Sauvegarde endommagée : catalogue illisible.');
   if (!d.rdvs.every(r => r && typeof r.id === 'string' && dateValide(r.date))) throw new Error('Sauvegarde endommagée : RDV illisibles.');
@@ -2817,6 +2886,7 @@ async function proposerRestauration(texte) {
   synchroniserCatalogue(nouvel);
   nouvel.reglages.derniereSauvegarde = obj.exporteLe || nouvel.reglages.derniereSauvegarde;
   etat = nouvel;
+  appliquerTheme();
   ui.vue.ancre = null;
   const ecrit = await sauver();
   toast(ecrit ? 'Sauvegarde restaurée' : 'Restaurée, mais enregistrement impossible', ecrit ? 'ok' : 'bad');
@@ -2835,6 +2905,7 @@ async function toutEffacer() {
   });
   if (v !== true) return;
   etat = etatInitial();
+  appliquerTheme();
   ui.vue = { mode: 'objectif', ancre: null };
   await sauver();
   toast('Toutes les données ont été effacées', 'warn');
@@ -2960,6 +3031,7 @@ async function demarrer() {
     synchroniserCatalogue(etat);
   }
   indexer();
+  appliquerTheme();
   ui.vue.ancre = ancreParDefaut();
   rendre();
   if (!lectureEchouee) await sauver(); // persiste l'état initial et les migrations

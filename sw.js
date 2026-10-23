@@ -10,7 +10,7 @@
    À chaque mise en ligne, change VERSION (même valeur que APP_VERSION
    dans index.html) : l'ancien cache est alors supprimé proprement.
    ===================================================================== */
-const VERSION = 'v1.0.0';
+const VERSION = 'v1.1.0';
 const PREFIXE = 'suivi-commercial-';
 const CACHE = PREFIXE + VERSION;
 const PAGE = './';
